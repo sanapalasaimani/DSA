@@ -1,15 +1,23 @@
 class Solution {
     public double myPow(double x, int n) {
-        long N=(long) n;
-        if(N<0){ N=-N; x=1/x;}
-        double pow=1;
-        while(N>0){
-            if((N&1)==1){
-                pow*=x;
-                N=N-1;}
-            x*=x;
-            N=N>>>1;
+        long power = n; // long avoids overflow when n = Integer.MIN_VALUE
+
+        if (power < 0) {
+            x = 1 / x;
+            power = -power;
         }
-        return pow;
+
+        double result = 1.0;
+
+        while (power > 0) {
+            if (power % 2 == 1) {
+                result *= x;
+            }
+
+            x *= x;
+            power /= 2;
+        }
+
+        return result;
     }
 }
